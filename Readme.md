@@ -65,7 +65,7 @@ El juego permite guardar el estado actual en un archivo para continuar posterior
 * Entorno: *Visual Studio Code*
 
 
-## 📚 UML
+# UML
 
 El proyecto incluye un diagrama UML que muestra la relación entre clases.
 
