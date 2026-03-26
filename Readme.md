@@ -20,12 +20,19 @@ El objetivo es mantener la sincronización entre jugadores utilizando lógica de
 # Estructura del proyecto
 
 GameTheMind-CPP/
+
 main.cpp
+
 Juego.h / Juego.cpp
+
 Jugador.h / Jugador.cpp
+
 Carta.h / Carta.cpp
+
 Mazo.h / Mazo.cpp
+
 GestorArchivos.h / GestorArchivos.cpp
+
 README.md
 
 # Clases principales
