@@ -50,7 +50,6 @@ README.md
     1. Compilar
 g++ *.cpp -o juego
 
-
     2. Ejecutar
 ./juego
 
