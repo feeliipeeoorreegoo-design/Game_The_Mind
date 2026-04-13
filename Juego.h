@@ -7,8 +7,8 @@
 class Juego {
 private:
     Mazo mazo;
-    Jugador1 jugador1;
-    Jugador2 jugador2;
+    Jugador jugador1;  
+    Jugador jugador2;  
     int vidas;
     int ultimoValor;
 
