@@ -86,7 +86,7 @@ public:
     Juego() {
         vidas = 3;
         ultimoValor = 0;
-        mazo.barajar(); // 🔥 importante
+        mazo.barajar(); //
     }
 
     void iniciar() {
