@@ -12,7 +12,8 @@ Juego::Juego() {
 
 void Juego::iniciar() {
     for (int i = 0; i < 7; i++) {
-        jugador.recibirCarta(mazo.repartirCarta());
+        jugador1.recibirCarta(mazo.repartirCarta());
+        jugador2.recibirCarta(mazo.repartirCarta());
     }
 }
 
@@ -21,15 +22,30 @@ bool Juego::verificarOrden(int valor) {
 }
 
 void Juego::jugarTurno() {
-    jugador.mostrarCartas();
+    jugador1.mostrarCartas();
     int opcion;
     cout << "Elige carta: ";
     cin >> opcion;
 
-    Carta c = jugador.jugarCarta(opcion);
+    Carta c = jugador1.jugarCarta(opcion);
 
     if (verificarOrden(c.getValor())) {
         ultimoValor = c.getValor();
+        cout << "Bien jugado\n";
+    } else {
+        vidas--;
+        cout << "Error! Vidas restantes: " << vidas << endl;
+    }
+
+    // 🔹 agregado jugador 2
+    jugador2.mostrarCartas();
+    cout << "Elige carta: ";
+    cin >> opcion;
+
+    Carta c2 = jugador2.jugarCarta(opcion);
+
+    if (verificarOrden(c2.getValor())) {
+        ultimoValor = c2.getValor();
         cout << "Bien jugado\n";
     } else {
         vidas--;
