@@ -1,0 +1,151 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstdlib>
+#include <fstream>
+
+using namespace std;
+
+// ---------------- CARTA ----------------
+class Carta {
+private:
+    int valor;
+
+public:
+    Carta(int v = 0) {
+        valor = v;
+    }
+
+    int getValor() {
+        return valor;
+    }
+};
+
+// ---------------- JUGADOR ----------------
+class Jugador {
+private:
+    vector<Carta> cartas;
+
+public:
+    Jugador() {}
+
+    void recibirCarta(Carta c) {
+        cartas.push_back(c);
+    }
+
+    void mostrarCartas() {
+        for (int i = 0; i < cartas.size(); i++) {
+            cout << i << ": " << cartas[i].getValor() << endl;
+        }
+    }
+
+    Carta jugarCarta(int index) {
+        Carta c = cartas[index];
+        cartas.erase(cartas.begin() + index);
+        return c;
+    }
+
+    int cantidadCartas() {
+        return cartas.size();
+    }
+};
+
+// ---------------- MAZO ----------------
+class Mazo {
+private:
+    vector<Carta> cartas;
+
+public:
+    Mazo() {
+        for (int i = 1; i <= 100; i++) {
+            cartas.push_back(Carta(i));
+        }
+    }
+
+    void barajar() {
+        random_shuffle(cartas.begin(), cartas.end());
+    }
+
+    Carta repartirCarta() {
+        Carta c = cartas.back();
+        cartas.pop_back();
+        return c;
+    }
+};
+
+// ---------------- JUEGO ----------------
+class Juego {
+private:
+    Mazo mazo;
+    Jugador jugador1;
+    Jugador jugador2;
+    int vidas;
+    int ultimoValor;
+
+public:
+    Juego() {
+        vidas = 3;
+        ultimoValor = 0;
+        mazo.barajar(); // 🔥 importante
+    }
+
+    void iniciar() {
+        for (int i = 0; i < 7; i++) {
+            jugador1.recibirCarta(mazo.repartirCarta());
+            jugador2.recibirCarta(mazo.repartirCarta());
+        }
+    }
+
+    bool verificarOrden(int valor) {
+        return valor > ultimoValor;
+    }
+
+    void jugarTurno() {
+        int opcion;
+
+        // Turno jugador 1
+        cout << "\nTurno Jugador 1\n";
+        jugador1.mostrarCartas();
+        cout << "Elige carta: ";
+        cin >> opcion;
+
+        Carta c = jugador1.jugarCarta(opcion);
+
+        if (verificarOrden(c.getValor())) {
+            ultimoValor = c.getValor();
+            cout << "Bien jugado\n";
+        } else {
+            vidas--;
+            cout << "Error! Vidas restantes: " << vidas << endl;
+        }
+
+        // Turno jugador 2
+        cout << "\nTurno Jugador 2\n";
+        jugador2.mostrarCartas();
+        cout << "Elige carta: ";
+        cin >> opcion;
+
+        Carta c2 = jugador2.jugarCarta(opcion);
+
+        if (verificarOrden(c2.getValor())) {
+            ultimoValor = c2.getValor();
+            cout << "Bien jugado\n";
+        } else {
+            vidas--;
+            cout << "Error! Vidas restantes: " << vidas << endl;
+        }
+    }
+};
+
+// ---------------- MAIN ----------------
+int main() {
+    Juego juego;
+
+    juego.iniciar();
+
+    for (int i = 0; i < 7; i++) {
+        juego.jugarTurno();
+    }
+
+    return 0;
+}
